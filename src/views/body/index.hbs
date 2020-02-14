@@ -1,0 +1,41 @@
+<div class="m-5">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-5">
+      {{{title}}}
+      <h1 class="display-4">Taller</h1>
+      <h3 class="">Practicas Intermedias</h3>
+      <h3>Grupo 2</h3>
+    </div>
+  </div>
+</div>
+
+<div class="m-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <ul class="people_list">
+          {{#each people}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="col-6">
+        <ul class="data_list">
+          {{#each data}}
+          <li>{{this.nombre}}</li>
+          <li>{{this.edad}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="col-12">
+        {{#if author}}
+        <h1>{{firstName}}</h1>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+
+    <button type="button" class="m-2 btn btn-success btn-lg" onclick="get()">Get</button>
+    <button type="button" class="m-2 btn btn-success btn-lg" onclick="post()">Post</button>
