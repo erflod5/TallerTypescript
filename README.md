@@ -1,4 +1,4 @@
-# TallerTypescript
+# Taller NodeJs y Typescript Grupo2
 
 # Requisitos
 
