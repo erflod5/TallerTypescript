@@ -8,6 +8,9 @@ function suma(a : number, b : number) : number{
     return a + b;
 }
 
+let x : number | string = 10;
+x = "hola";
+
 //Callback
 let result = function operar2(a : number, b : number, f : (c : number, d : number) => number) : number{
     return f(a,b);
@@ -27,6 +30,8 @@ interface Dimension{
     getWidth() : number,
     area() : number;
 }
+
+let cuadrado : Dimension = {width : 10, height : 100, getWidth : function(){return this.width;}, area : function(){ return this.width * this.height; } };
 
 class Shapes implements Dimension{
     width : number;
