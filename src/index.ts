@@ -1,51 +1,69 @@
-//Librerias, Modulos y Paquetes
-import express from 'express';
-import exphbs from 'express-handlebars';
-import path from 'path';
-import socket from 'socket.io';
+//Importar Clases
+import Persona from './models/persona';
+import Lista from './models/Lista';
+import {Person, Employee} from './models/Abstract/abstract';
 
-//Rutas
-import IndexRoutes from './routes/indexRoutes';
+//Funciones
+function suma(a : number, b : number) : number{
+    return a + b;
+}
 
-//Inicializaciones
-const app = express();
+//Callback
+let result = function operar2(a : number, b : number, f : (c : number, d : number) => number) : number{
+    return f(a,b);
+}
 
-//Configuraciones
-app.set('port',3000 || process.env.PORT);
-app.set('views',path.join(__dirname,'views'));
-app.engine('.hbs', exphbs({
-    defaultLayout: 'main',
-    extname: '.hbs',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
-    helpers: require('./lib/helpers')
-}));
-app.set('view engine', '.hbs');
+console.log(result(2,2,suma));
 
-//Middlewares
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+//Arreglos
+let months : Array<string> = ["Jan","Feb","March"];
+months.push("April");
+console.log(months);
 
-//Rutas
-app.use(IndexRoutes);
+//Interfaces
+interface Dimension{
+    width : number,
+    height : number,
+    getWidth() : number,
+    area() : number;
+}
 
-//Static
-app.use(express.static(path.join(__dirname, 'public')));
+class Shapes implements Dimension{
+    width : number;
+    height : number;
 
-//Server
-var server = app.listen(app.get('port'),()=>{
-    console.log('Servidor NodeJs en puerto ' + app.get('port'));
-});
+    constructor(width : number, height : number){
+        this.width = width;
+        this.height = height;
+    }
 
-var io = socket(server);
-io.on('connection',(socket)=>{
-    console.log('made socket connection',socket.id);
+    getWidth(){
+        return this.width;
+    }
 
-    socket.on('chat',function(data){
-        io.sockets.emit('chat',data);
-    });
+    area(){
+        return this.width * this.height;
+    }
+}
 
-    socket.on('typing',(data)=>{
-        socket.broadcast.emit('typing',data);
-    });
-});
+let shape = new Shapes(10,10);
+console.log(shape.area());
+
+//Uso de Typescript
+let p = new Persona("Erik");
+let p1 = new Persona("Gerardo",22);
+p.metodoPublico();
+p1.metodoPublico();
+
+//EDD
+let lista = new Lista();
+lista.insert(1);
+lista.insert(2);
+lista.insert(3);
+lista.print();
+
+//Abstract class
+let emp : Person = new Employee("Erik",100);
+emp.display();
+let emp2 : Person = emp.find('Gerardo')
+emp2.display();
